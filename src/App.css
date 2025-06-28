@@ -1,0 +1,56 @@
+/* ----- General Page Styles ----- */
+body {
+  background-color: #f0f4f8;
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* ----- Center the Whole App ----- */
+#root,
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* ----- Header Styling ----- */
+.header-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.header-title {
+  color: #333;
+  font-size: 2rem;
+}
+
+.header-balance {
+  color: #4caf50;
+  font-size: 1.5rem;
+  margin-top: 10px;
+}
+
+/* ----- Input Form Styling ----- */
+.form-container {
+  width: 100%;
+  max-width: 400px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 600;

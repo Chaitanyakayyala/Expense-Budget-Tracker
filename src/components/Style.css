@@ -1,0 +1,258 @@
+/* styles.css */
+
+body {
+  font-family: 'Segoe UI', 'Poppins', sans-serif;
+  background-color: #f3f4f6;
+  margin: 0;
+  padding: 0;
+  color: #1f2937;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 2rem;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.logo-heading {
+  display: flex;
+  align-items: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1e40af;
+  gap: 0.5rem;
+}
+
+.logo {
+  width: 40px;
+}
+
+.balance-display {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #101111;
+  margin-bottom: 1.5rem;
+}
+
+.button-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.primary-btn {
+  background-color: #2563eb;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  transition: background 0.3s;
+  cursor: pointer;
+}
+
+.primary-btn:hover {
+  background-color: #1d4ed8;
+}
+
+/* Layout */
+.main-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.transactions,
+.budgets {
+  flex: 1;
+  min-width: 320px;
+}
+
+.transactions h2,
+.budgets h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Card Common */
+.card {
+  background: #dee9f3;
+  border-radius: 16px;
+  padding: 1.25rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03);
+  margin-bottom: 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-direction: column;
+  transition: transform 0.2s ease;
+  border-left: 5px solid #3b82f6;
+}
+
+.card:hover {
+  transform: scale(1.01);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.card-content {
+  width: 100%;
+}
+
+.amount.red {
+  color: #dc2626;
+  font-weight: 600;
+}
+
+.card-delete {
+  background: none;
+  border: none;
+  color: #ef4444;
+  cursor: pointer;
+  font-size: 0.9rem;
+  align-self: flex-end;
+  padding-top: 0.5rem;
+}
+
+/* Budget Cards */
+.budget-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.budget-card {
+  background: #f0fdf4;
+  border-radius: 16px;
+  padding: 1.25rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03);
+  border-left: 5px solid #22c55e;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: transform 0.2s ease;
+}
+
+.budget-card:hover {
+  transform: scale(1.01);
+}
+
+.budget-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #15803d;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  border-radius: 999px;
+  background-color: #e5e7eb;
+  margin: 0.5rem 0;
+  overflow: hidden;
+}
+
+.progress {
+  height: 100%;
+  background-color: #22c55e;
+  transition: width 0.3s ease-in-out;
+  border-radius: 999px;
+}
+
+.budget-amounts {
+  font-size: 0.95rem;
+  margin-top: 0.25rem;
+  color: #065f46;
+}
+
+/* Modals */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-box {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  max-width: 400px;
+  width: 100%;
+  position: relative;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #6b7280;
+}
+
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.modal-form label {
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.modal-form input {
+  padding: 0.6rem;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 1rem;
+  width: 100%;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.modal-btn {
+  flex: 1;
+  background-color: #2563eb;
+  color: white;
+  padding: 0.6rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.modal-btn:hover {
+  background-color: #1d4ed8;
+}
