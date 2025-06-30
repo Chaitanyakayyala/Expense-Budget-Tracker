@@ -15,6 +15,13 @@ const Modal = ({ onClose, onSubmit }) => {
       setDate("");
       setAmount("");
       setDetail("");
+      fetch('http://localhost:3000/api/transactions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newdata)
+      })
+        .then(res => res.json())
+        .then(data => setSubmittedData(prev => [...prev, data]));
     }
   };
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "./modal1";
 import Modalnew from "./modal2";
 
@@ -11,26 +11,61 @@ const Input = () => {
  
 
   const handledelete = (item) => {
-    let copytask = [...submittedData];
-    copytask = copytask.filter((task) => task.id !== item.id);
-    setSubmittedData(copytask);
-    setCount((prev) => prev - parseFloat(item.amount));
+   
     
-    if (item.type === "expense" && item.date) {
-      setSubmittedData1(prev => prev.map(b =>
-        b.budgetType === item.date
-          ? { ...b, remaining: (b.remaining !== undefined ? b.remaining : parseFloat(b.amount)) + Math.abs(parseFloat(item.amount)) }
-          : b
-      ));
-    }
+   
+    
+
+    fetch(`http://localhost:3000/api/transactions/${item.id}`, { method: 'DELETE' })
+      .then(() => {
+        setSubmittedData(prev => prev.filter(t => t.id !== item.id));
+        setCount(prev =>
+          item.type === "earning"
+            ? prev - parseFloat(item.amount)
+            : prev + Math.abs(parseFloat(item.amount))
+        );
+      });
   };
 
   const handledeletes = (item) => {
-    let copytask = [...submittedData1];
-    copytask = copytask.filter((task) => task.id !== item.id);
-    setSubmittedData1(copytask);
+    
+    // To delete a budget (call this when delete button is clicked)
+    fetch(`http://localhost:3000/api/budgets/${item.id}`, { method: 'DELETE' })
+      .then(() => setSubmittedData1(prev => prev.filter(b => b.id !== item.id)));
   };
 
+  const refresh = () => {
+    Promise.all([
+      fetch('http://localhost:3000/api/budgets').then(res => res.json()),
+      fetch('http://localhost:3000/api/transactions').then(res => res.json())
+    ]).then(([budgets, transactions]) => {
+      setSubmittedData1(
+        budgets.map(budget => {
+          const spent = transactions
+            .filter(t => t.type === "expense" && t.date === budget.budgetType)
+            .reduce((acc, t) => acc + Math.abs(parseFloat(t.amount)), 0);
+          return {
+            ...budget,
+            remaining: budget.amount - spent
+          };
+        })
+      );
+      setSubmittedData(transactions);
+      // Also update balance
+      const balance = transactions.reduce((acc, t) =>
+        t.type === "earning"
+          ? acc + parseFloat(t.amount)
+          : acc - Math.abs(parseFloat(t.amount)), 0);
+      setCount(balance);
+    });
+  };
+
+  // Call refresh on component mount (on every refresh)
+  useEffect(() => {
+    refresh();
+  }, []);
+
+  
   return (
     <div className="container">
       <header className="header">
@@ -54,6 +89,7 @@ const Input = () => {
           </h2>
           <h2>All Transactions</h2>
           {submittedData.map((item) => (
+            
             <div
               style={{
                 backgroundColor: item.type === "earning" ? "#dee9f3" : "#f4c9c9"
@@ -80,9 +116,11 @@ const Input = () => {
           <div className="budget-grid">
             {submittedData1.map((item) => {
               const total = parseFloat(item.amount);
-              const remain = item.remaining !== undefined ? item.remaining : total;
-              const used = total - remain;
+const remain = item.remaining !== undefined ? item.remaining : total;
+const used = total - remain;
+const percent = total === 0 ? 0 : (used / total) * 100;
               return (
+               
                 <div className="budget-card" key={item.id}>
                   <div className="budget-title">{item.budgetType}</div>
                   <div className="budget-amounts">
@@ -122,6 +160,7 @@ const Input = () => {
               ));
             }
             setModal(false);
+            
           }}
         />
       )}
@@ -132,6 +171,7 @@ const Input = () => {
           onSubmit={(data) => {
             setSubmittedData1((prev) => [...prev, { ...data, remaining: parseFloat(data.amount) }]);
             setModal1(false);
+            
           }}
         />
       )}

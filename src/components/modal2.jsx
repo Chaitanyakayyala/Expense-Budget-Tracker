@@ -7,9 +7,20 @@ const Modalnew = ({ onClose, onSubmit }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const newdata = { id: Date.now(), budgetType, amount };
+    // To add a budget (call this when your budget form is submitted)
+    
     if (onSubmit) onSubmit(newdata);
     setAmount("");
     setBudgetType("");
+    fetch('http://localhost:3000/api/budgets', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(
+        { ...newdata, remaining: parseFloat(amount) } // Assuming remaining is the same as amount initially
+      )
+    })
+      .then(res => res.json())
+      .then(data => setSubmittedData1(prev => [...prev, data]));
   };
 
   return (
