@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Modal from "./modal1";
 import Modalnew from "./modal2";
 
-const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = "https://expense-budget-tracker.onrender.com";
 
 const Input = () => {
   const [modal, setModal] = useState(false);
