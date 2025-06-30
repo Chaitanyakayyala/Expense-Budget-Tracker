@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Modal from "./modal1";
 import Modalnew from "./modal2";
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 const Input = () => {
   const [modal, setModal] = useState(false);
   const [modal1, setModal1] = useState(false);
@@ -16,7 +18,7 @@ const Input = () => {
    
     
 
-    fetch(`http://localhost:3000/api/transactions/${item.id}`, { method: 'DELETE' })
+    fetch(`${API_URL}/api/transactions/${item.id}`, { method: 'DELETE' })
       .then(() => {
         setSubmittedData(prev => prev.filter(t => t.id !== item.id));
         setCount(prev =>
@@ -30,14 +32,14 @@ const Input = () => {
   const handledeletes = (item) => {
     
     // To delete a budget (call this when delete button is clicked)
-    fetch(`http://localhost:3000/api/budgets/${item.id}`, { method: 'DELETE' })
+    fetch(`${API_URL}/api/budgets/${item.id}`, { method: 'DELETE' })
       .then(() => setSubmittedData1(prev => prev.filter(b => b.id !== item.id)));
   };
 
   const refresh = () => {
     Promise.all([
-      fetch('http://localhost:3000/api/budgets').then(res => res.json()),
-      fetch('http://localhost:3000/api/transactions').then(res => res.json())
+      fetch(`${API_URL}/api/budgets`).then(res => res.json()),
+      fetch(`${API_URL}/api/transactions`).then(res => res.json())
     ]).then(([budgets, transactions]) => {
       setSubmittedData1(
         budgets.map(budget => {
